@@ -1,0 +1,17 @@
+<p-dataTable [value]="lista" [paginator]="true" [rows]="5" [responsive]="true">
+  <p-column header="Pessoa" field="pessoa"></p-column>
+  <p-column header="Descrição" field="descricao"></p-column>
+  <p-column header="Vencimento" field="dataVencimento" styleClass="col-data"></p-column>
+  <p-column header="Pagamento" field="dataPagamento" styleClass="col-data"></p-column>
+  <p-column header="Valor" styleClass="col-valor">
+    <ng-template let-lanc="rowData" pTemplate="body">
+      <span [ngStyle]="{ color: lanc.tipo === 'DESPESA' ? 'red':'blue' }">{{lanc.valor}}</span>
+    </ng-template>
+  </p-column>
+  <p-column header="Ações" styleClass="col-acoes">
+    <ng-template let-lanc="rowData" pTemplate="body">
+      <a pButton icon="fa-pencil" [routerLink]="['/lancamentos', lanc.codigo]"  pTooltip="Editar" tooltipPosition="top"></a>
+      <button pButton icon="fa-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+    </ng-template>
+  </p-column>
+</p-dataTable>
