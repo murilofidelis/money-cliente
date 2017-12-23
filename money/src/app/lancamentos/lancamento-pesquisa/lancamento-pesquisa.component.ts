@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/components/common/api';
-import { Message } from 'primeng/primeng';
-import { GrowlModule } from 'primeng/primeng';
 
 import { LancamentoServiceService, LancamentoFiltro } from '../../lancamentos/lancamento-service.service';
+import { ToastyService } from 'ng2-toasty';
 
 @Component({
   selector: 'app-lancamento-pesquisa',
@@ -16,9 +15,8 @@ export class LancamentoPesquisaComponent implements OnInit {
   filtro = new LancamentoFiltro();
   lancamentos = [];
   @ViewChild('tabela') grid;
-  msgs: Message[] = [];
 
-  constructor(private lancamentoService: LancamentoServiceService) { }
+  constructor(private lancamentoService: LancamentoServiceService, private toasty: ToastyService) { }
 
   ngOnInit() { }
 
@@ -45,8 +43,7 @@ export class LancamentoPesquisaComponent implements OnInit {
         } else {
           this.grid.first = 0;
         }
-        this.msgs = [];
-        this.msgs.push({ severity: 'success', summary: 'Service Message', detail: 'Lançamento excluído com sucesso!' });
+        this.toasty.success('Lancamento excluido com sucesso!');
       });
   }
 

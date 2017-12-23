@@ -14,8 +14,7 @@ import { InputMaskModule } from 'primeng/components/inputmask/inputmask';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { Routes, RouterModule } from '@angular/router'
 import { HttpModule } from '@angular/http';
-
-
+import { ToastyModule } from 'ng2-toasty';
 
 import { AppComponent } from './app.component';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
@@ -27,7 +26,6 @@ import { PessoaPesquisaComponent } from 'app/pessoa/pessoa-pesquisa/pessoa-pesqu
 import { PessoaCadastroComponent } from 'app/pessoa/pessoa-cadastro/pessoa-cadastro.component';
 import { LancamentoServiceService } from './lancamentos/lancamento-service.service';
 import { PessoaService } from './pessoa/pessoa.service';
-
 
 const routes: Routes = [
   { path: 'lancamentos', component: LancamentoPesquisaComponent },
@@ -46,7 +44,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
     HttpModule,
-
+    ToastyModule.forRoot(),
     LancamentosModule,
     PessoaModule,
     CoreModule
