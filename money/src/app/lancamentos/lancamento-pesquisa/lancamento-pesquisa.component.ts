@@ -1,27 +1,53 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { LazyLoadEvent } from 'primeng/components/common/api';
+import { Message } from 'primeng/primeng';
+import { GrowlModule } from 'primeng/primeng';
+
+import { LancamentoServiceService, LancamentoFiltro } from '../../lancamentos/lancamento-service.service';
 
 @Component({
   selector: 'app-lancamento-pesquisa',
   templateUrl: './lancamento-pesquisa.component.html',
   styleUrls: ['./lancamento-pesquisa.component.css']
 })
-export class LancamentoPesquisaComponent  {
+export class LancamentoPesquisaComponent implements OnInit {
 
- lancamentos = [
-    { codigo: 1, tipo: 'DESPESA', descricao: 'Compra de pão', dataVencimento: '30/06/2017',
-      dataPagamento: null, valor: 4.55, pessoa: 'Padaria do José' },
+  totalRegistros = 0;
+  filtro = new LancamentoFiltro();
+  lancamentos = [];
+  @ViewChild('tabela') grid;
+  msgs: Message[] = [];
 
-    { tipo: 'RECEITA', descricao: 'Venda de software', dataVencimento: '10/06/2017',
-      dataPagamento: '09/06/2017', valor: 80000, pessoa: 'Atacado Brasil' },
-    { tipo: 'DESPESA', descricao: 'Impostos', dataVencimento: '20/07/2017',
-      dataPagamento: null, valor: 14312, pessoa: 'Ministério da Fazenda' },
-    { tipo: 'DESPESA', descricao: 'Mensalidade de escola', dataVencimento: '05/06/2017',
-      dataPagamento: '30/05/2017', valor: 800, pessoa: 'Escola Abelha Rainha' },
-    { tipo: 'RECEITA', descricao: 'Venda de carro', dataVencimento: '18/08/2017',
-      dataPagamento: null, valor: 55000, pessoa: 'Sebastião Souza' },
-    { tipo: 'DESPESA', descricao: 'Aluguel', dataVencimento: '10/07/2017',
-      dataPagamento: '09/07/2017', valor: 1750, pessoa: 'Casa Nova Imóveis' },
-    { tipo: 'DESPESA', descricao: 'Mensalidade musculação', dataVencimento: '13/07/2017',
-      dataPagamento: null, valor: 180, pessoa: 'Academia Top' }
-  ];
+  constructor(private lancamentoService: LancamentoServiceService) { }
+
+  ngOnInit() { }
+
+  pesquisar(pagina = 0) {
+    this.filtro.pagina = pagina;
+
+    this.lancamentoService.pesquisar(this.filtro)
+      .then(resultado => {
+        this.totalRegistros = resultado.total;
+        this.lancamentos = resultado.lancamentos;
+      });
+  }
+
+  aoMudarPagina(event: LazyLoadEvent) {
+    const pagina = event.first / event.rows;
+    this.pesquisar(pagina);
+  }
+
+  excluir(lancamento: any) {
+    this.lancamentoService.excluir(lancamento.codigo)
+      .then(() => {
+        if (this.grid.first === 0) {
+          this.pesquisar();
+        } else {
+          this.grid.first = 0;
+        }
+        this.msgs = [];
+        this.msgs.push({ severity: 'success', summary: 'Service Message', detail: 'Lançamento excluído com sucesso!' });
+      });
+  }
+
 }

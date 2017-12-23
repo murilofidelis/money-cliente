@@ -13,6 +13,9 @@ import { DropdownModule } from 'primeng/components/dropdown/dropdown';
 import { InputMaskModule } from 'primeng/components/inputmask/inputmask';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { Routes, RouterModule } from '@angular/router'
+import { HttpModule } from '@angular/http';
+
+
 
 import { AppComponent } from './app.component';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
@@ -22,6 +25,9 @@ import { LancamentoPesquisaComponent } from './lancamentos/lancamento-pesquisa/l
 import { LancamentoCadastroComponent } from './lancamentos/lancamento-cadastro/lancamento-cadastro.component';
 import { PessoaPesquisaComponent } from 'app/pessoa/pessoa-pesquisa/pessoa-pesquisa.component';
 import { PessoaCadastroComponent } from 'app/pessoa/pessoa-cadastro/pessoa-cadastro.component';
+import { LancamentoServiceService } from './lancamentos/lancamento-service.service';
+import { PessoaService } from './pessoa/pessoa.service';
+
 
 const routes: Routes = [
   { path: 'lancamentos', component: LancamentoPesquisaComponent },
@@ -39,12 +45,13 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
+    HttpModule,
 
     LancamentosModule,
     PessoaModule,
     CoreModule
   ],
-  providers: [],
+  providers: [LancamentoServiceService, PessoaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

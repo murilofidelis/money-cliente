@@ -13,7 +13,6 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentoPesquisaComponent } from './lancamento-pesquisa/lancamento-pesquisa.component';
-import { LancamentoGridComponent } from './lancamento-pesquisa/lancamento-grid/lancamento-grid.component';
 import { SharedModule } from './../shared/shared.module';
 import { RouterModule } from '@angular/router';
 
@@ -36,7 +35,6 @@ import { RouterModule } from '@angular/router';
   declarations: [
     LancamentoCadastroComponent,
     LancamentoPesquisaComponent,
-    LancamentoGridComponent,
   ], exports: [
     LancamentoCadastroComponent,
     LancamentoPesquisaComponent,
