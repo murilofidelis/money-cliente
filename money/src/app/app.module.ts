@@ -10,7 +10,9 @@ import { InputTextareaModule } from 'primeng/components/inputtextarea/inputtexta
 import { CalendarModule } from 'primeng/components/calendar/calendar';
 import { SelectButtonModule } from 'primeng/components/selectbutton/selectbutton';
 import { DropdownModule } from 'primeng/components/dropdown/dropdown';
+import { ConfirmDialogModule } from 'primeng/components/confirmdialog/confirmdialog';
 import { InputMaskModule } from 'primeng/components/inputmask/inputmask';
+import { ConfirmationService } from 'primeng/components/common/api';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { Routes, RouterModule } from '@angular/router'
 import { HttpModule } from '@angular/http';
@@ -45,11 +47,16 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     HttpModule,
     ToastyModule.forRoot(),
+    ConfirmDialogModule,
     LancamentosModule,
     PessoaModule,
     CoreModule
   ],
-  providers: [LancamentoServiceService, PessoaService],
+  providers: [
+    LancamentoServiceService,
+    PessoaService,
+    ConfirmationService],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
