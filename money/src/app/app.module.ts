@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule, Component } from '@angular/core';
+import { NgModule, Component, LOCALE_ID } from '@angular/core';
 import { InputTextModule } from 'primeng/components/inputtext/inputtext';
 import { ButtonModule } from 'primeng/components/button/button';
 import { DataTableModule } from 'primeng/components/datatable/datatable';
@@ -55,7 +55,8 @@ const routes: Routes = [
   providers: [
     LancamentoServiceService,
     PessoaService,
-    ConfirmationService],
+    ConfirmationService,
+    { provide: LOCALE_ID, useValue: 'pt-BR' }],
 
   bootstrap: [AppComponent]
 })
