@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LancamentoService, LancamentoFiltro } from '../../lancamentos/lancamento-service.service';
+import { PessoaService } from './../../pessoa/pessoa.service';
 import { ErrorHandleService } from '../../core/error-handle.service';
 
 @Component({
@@ -16,18 +17,12 @@ export class LancamentoCadastroComponent implements OnInit {
   ];
 
   categorias = [];
-
-  pessoas = [
-    { label: 'Murilo Fidelis', value: '1' },
-    { label: 'Erica Neves', value: '2' },
-    { label: 'Maria Silva', value: '3' },
-  ];
-
-
+  pessoas = [];
 
   constructor(
     private route: ActivatedRoute,
     private lancamentoService: LancamentoService,
+    private pessoaService: PessoaService,
     private errorHandle: ErrorHandleService,
   ) { }
 
@@ -35,12 +30,20 @@ export class LancamentoCadastroComponent implements OnInit {
     console.log(this.route.snapshot.params['codigo']);
 
     this.carregarCategorias();
+    this.carregarPessoas();
   }
 
   carregarCategorias() {
     return this.lancamentoService.listarCategorias()
       .then(categorias => { this.categorias = categorias.map(c => ({ label: c.nome, value: c.codigo })); })
       .catch(erro => this.errorHandle.handle(erro));
+  }
+
+  carregarPessoas() {
+    return this.pessoaService.listarPessoas()
+      .then(pessoas => {
+      this.pessoas = pessoas.map(p => ({ label: p.nome, value: p.codigo }));
+      }).catch(erro => this.errorHandle.handle(erro));
   }
 
 }

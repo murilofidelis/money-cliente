@@ -49,4 +49,6 @@ export class PessoaService {
     headers.append('Content-Type', 'application/json');
     return this.http.put(`${this.pessoasUrl}/${codigo}/ativo`, ativo, { headers }).toPromise().then(() => null);
   }
+
+  listarPessoas(): Promise<any> { return this.http.get(`${this.pessoasUrl}`).toPromise().then(response => response.json().content); }
 }
