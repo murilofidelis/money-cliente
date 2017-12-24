@@ -38,4 +38,8 @@ export class PessoaService {
         return resultado;
       })
   }
+
+  excluir(codigo: number) {
+    return this.http.delete(`${this.pessoasUrl}/${codigo}`).toPromise().then(() => null);
+  }
 }

@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ConfirmationService } from 'primeng/components/common/confirmationservice';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/components/common/api';
 import { PessoaFiltro, PessoaService } from '../pessoa.service';
+import { ErrorHandleService } from '../../core/error-handle.service';
+import { ToastyService } from 'ng2-toasty';
 
 @Component({
   selector: 'app-pessoa-pesquisa',
@@ -12,8 +15,13 @@ export class PessoaPesquisaComponent {
   totalRegistros = 0;
   filtro = new PessoaFiltro();
   pessoas = [];
+  @ViewChild('tabela') grid;
 
-  constructor(private pessoaService: PessoaService) { }
+  constructor(
+    private pessoaService: PessoaService,
+    private toasty: ToastyService,
+    private confirmartion: ConfirmationService,
+    private errorHandle: ErrorHandleService) { }
 
   pesquisar(pagina = 0) {
     this.filtro.pagina = pagina;
@@ -29,13 +37,24 @@ export class PessoaPesquisaComponent {
     const pagina = event.first / event.rows;
     this.pesquisar(pagina);
   }
-  /*pessoas = [
-     { nome: 'Manoel Pinheiro', cidade: 'Uberlândia', estado: 'MG', ativo: true },
-     { nome: 'Sebastião da Silva', cidade: 'São Paulo', estado: 'SP', ativo: false },
-     { nome: 'Carla Souza', cidade: 'Florianópolis', estado: 'SC', ativo: true },
-     { nome: 'Luís Pereira', cidade: 'Curitiba', estado: 'PR', ativo: true },
-     { nome: 'Vilmar Andrade', cidade: 'Rio de Janeiro', estado: 'RJ', ativo: false },
-     { nome: 'Paula Maria', cidade: 'Uberlândia', estado: 'MG', ativo: true }
-   ];
- */
+
+  confirmarExclusao(pessoa: any) {
+    this.confirmartion.confirm({
+      message: 'Deseja excluir?', accept: () => {
+        this.excluir(pessoa)
+      }
+    });
+  }
+
+  excluir(pessoa: any) {
+    this.pessoaService.excluir(pessoa.codigo).then(() => {
+      if (this.grid.first === 0) {
+        this.pesquisar();
+      } else {
+        this.grid.first = 0;
+      }
+      this.toasty.success('Pessoa excluida com sucesso!');
+    }).catch(erro => this.errorHandle.handle(erro));
+  }
+
 }
