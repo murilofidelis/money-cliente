@@ -13,7 +13,7 @@ export class LancamentoFiltro {
 }
 
 @Injectable()
-export class LancamentoServiceService {
+export class LancamentoService {
 
   headers: Headers;
   lancamentosUrl = 'http://localhost:8080/lancamentos';
