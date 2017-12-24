@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { LancamentoService, LancamentoFiltro } from '../../lancamentos/lancamento-service.service';
+import { ErrorHandleService } from '../../core/error-handle.service';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -13,10 +15,7 @@ export class LancamentoCadastroComponent implements OnInit {
     { label: 'Despesa', value: 'DESPESA' }
   ];
 
-  categorias = [
-    { label: 'Alimentação', value: '1' },
-    { label: 'Trasporte', value: '2' },
-  ];
+  categorias = [];
 
   pessoas = [
     { label: 'Murilo Fidelis', value: '1' },
@@ -27,12 +26,21 @@ export class LancamentoCadastroComponent implements OnInit {
 
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private lancamentoService: LancamentoService,
+    private errorHandle: ErrorHandleService,
   ) { }
 
   ngOnInit() {
     console.log(this.route.snapshot.params['codigo']);
 
+    this.carregarCategorias();
+  }
+
+  carregarCategorias() {
+    return this.lancamentoService.listarCategorias()
+      .then(categorias => { this.categorias = categorias.map(c => ({ label: c.nome, value: c.codigo })); })
+      .catch(erro => this.errorHandle.handle(erro));
   }
 
 }

@@ -17,6 +17,7 @@ export class LancamentoService {
 
   headers: Headers;
   lancamentosUrl = 'http://localhost:8080/lancamentos';
+  categoriasUrl = 'http://localhost:8080/categorias';
 
   constructor(private http: Http) { }
 
@@ -53,5 +54,7 @@ export class LancamentoService {
   excluir(codigo: number): Promise<void> {
     return this.http.delete(`${this.lancamentosUrl}/${codigo}`).toPromise().then(() => null);
   }
+
+  listarCategorias(): Promise<any> { return this.http.get(`${this.categoriasUrl}`).toPromise().then(response => response.json()); }
 
 }
