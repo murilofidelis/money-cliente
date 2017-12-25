@@ -1,4 +1,4 @@
-import { Lancamento } from './../model/lancamento.model';
+import { Lancamento } from './../model/model';
 import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Injectable } from '@angular/core';
 

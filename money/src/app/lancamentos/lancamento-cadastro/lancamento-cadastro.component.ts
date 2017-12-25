@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { ToastyService } from 'ng2-toasty';
 
-import { LancamentoService, LancamentoFiltro } from '../../lancamentos/lancamento-service.service';
+import { LancamentoService, LancamentoFiltro } from '../../lancamentos/lancamento.service';
 import { PessoaService } from './../../pessoa/pessoa.service';
-import { Lancamento } from './../../model/lancamento.model';
+import { Lancamento } from './../../model/model';
 import { ErrorHandleService } from '../../core/error-handle.service';
 
 @Component({

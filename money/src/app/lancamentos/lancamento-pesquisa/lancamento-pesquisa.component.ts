@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/components/common/api';
 
-import { LancamentoService, LancamentoFiltro } from '../../lancamentos/lancamento-service.service';
+import { LancamentoService, LancamentoFiltro } from '../../lancamentos/lancamento.service';
 import { ErrorHandleService } from '../../core/error-handle.service';
 import { ToastyService } from 'ng2-toasty';
 import { ConfirmationService } from 'primeng/components/common/confirmationservice';

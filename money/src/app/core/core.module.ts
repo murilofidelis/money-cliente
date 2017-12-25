@@ -6,7 +6,7 @@ import { ToastyModule } from 'ng2-toasty';
 import { ConfirmDialogModule } from 'primeng/components/confirmdialog/confirmdialog';
 import { ConfirmationService } from 'primeng/components/common/confirmationservice';
 
-import { LancamentoService } from 'app/lancamentos/lancamento-service.service';
+import { LancamentoService } from 'app/lancamentos/lancamento.service';
 import { PessoaService } from './../pessoa/pessoa.service';
 import { ErrorHandleService } from '../core/error-handle.service';
 

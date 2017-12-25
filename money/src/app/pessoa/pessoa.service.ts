@@ -1,6 +1,7 @@
 import { Http, Headers, URLSearchParams } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
+import { Pessoa } from 'app/model/model';
 
 export class PessoaFiltro {
   nome: string;
@@ -51,4 +52,11 @@ export class PessoaService {
   }
 
   listarPessoas(): Promise<any> { return this.http.get(`${this.pessoasUrl}`).toPromise().then(response => response.json().content); }
+
+  salvarPessoa(pessoa: Pessoa): Promise<Pessoa> {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.pessoasUrl, JSON.stringify(pessoa), { headers }).toPromise().then(response => response.json());
+  }
+
 }
