@@ -1,3 +1,4 @@
+import { Lancamento } from './../model/lancamento.model';
 import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Injectable } from '@angular/core';
 
@@ -57,4 +58,9 @@ export class LancamentoService {
 
   listarCategorias(): Promise<any> { return this.http.get(`${this.categoriasUrl}`).toPromise().then(response => response.json()); }
 
+  salvarLancamento(lancamento: Lancamento): Promise<Lancamento> {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.lancamentosUrl, JSON.stringify(lancamento), { headers }).toPromise().then(response => response.json());
+  }
 }
