@@ -7,12 +7,10 @@ export class ErrorHandleService {
   constructor(private toasty: ToastyService) { }
 
   handle(errorResponse: any) {
+
     let msg: string;
 
-    if (typeof errorResponse === 'string') {
-      msg = errorResponse;
-
-    } else if (errorResponse instanceof Response && errorResponse.status >= 400 && errorResponse.status <= 499) {
+    if (errorResponse.status >= 400 && errorResponse.status <= 499) {
       let errors;
       msg = 'Ocorreu um erro ao processar a sua solicitação';
 
@@ -23,7 +21,7 @@ export class ErrorHandleService {
       console.error('Ocorreu um erro', errorResponse);
 
     } else {
-      msg = 'Erro ao processar serviço remoto. Tente novamente.';
+      msg = 'Ocorreu um erro inesperado.';
       console.error('Ocorreu um erro', errorResponse);
     }
 
