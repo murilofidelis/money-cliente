@@ -9,6 +9,7 @@ import { ConfirmationService } from 'primeng/components/common/confirmationservi
 import { LancamentoService } from 'app/lancamentos/lancamento.service';
 import { PessoaService } from './../pessoa/pessoa.service';
 import { ErrorHandleService } from '../core/error-handle.service';
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { ErrorHandleService } from '../core/error-handle.service';
     ToastyModule.forRoot(),
     ConfirmDialogModule,
   ],
-  declarations: [NavbarComponent],
+  declarations: [NavbarComponent, PaginaNaoEncontradaComponent],
   exports: [
     NavbarComponent,
     ToastyModule,

@@ -27,9 +27,6 @@ import { RouterModule } from '@angular/router';
   declarations: [
     PessoaCadastroComponent,
     PessoaPesquisaComponent
-  ], exports: [
-    PessoaCadastroComponent,
-    PessoaPesquisaComponent,
-  ]
+  ], exports: []
 })
 export class PessoaModule { }
