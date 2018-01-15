@@ -15,26 +15,12 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { Routes, RouterModule } from '@angular/router'
 import { HttpModule } from '@angular/http';
 
+import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { PessoaModule } from './pessoa/pessoa.module';
 import { CoreModule } from './core/core.module';
-import { LancamentoPesquisaComponent } from './lancamentos/lancamento-pesquisa/lancamento-pesquisa.component';
-import { LancamentoCadastroComponent } from './lancamentos/lancamento-cadastro/lancamento-cadastro.component';
-import { PessoaPesquisaComponent } from 'app/pessoa/pessoa-pesquisa/pessoa-pesquisa.component';
-import { PessoaCadastroComponent } from 'app/pessoa/pessoa-cadastro/pessoa-cadastro.component';
-import { PaginaNaoEncontradaComponent } from 'app/core/pagina-nao-encontrada.component';
-
-const routes: Routes = [
-  { path: '', redirectTo: 'lancamentos', pathMatch: 'full' },
-  { path: 'lancamentos', component: LancamentoPesquisaComponent },
-  { path: 'lancamentos/novo', component: LancamentoCadastroComponent },
-  { path: 'lancamentos/:codigo', component: LancamentoCadastroComponent },
-  { path: 'pessoas', component: PessoaPesquisaComponent },
-  { path: 'pessoas/novo', component: PessoaCadastroComponent },
-  { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent },
-  { path: '**', redirectTo: 'pagina-nao-encontrada' }
-];
 
 @NgModule({
   declarations: [
@@ -43,12 +29,12 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(routes),
     HttpModule,
 
+    AppRoutingModule,
+    CoreModule,
     LancamentosModule,
-    PessoaModule,
-    CoreModule
+    PessoaModule
   ],
   providers: [],
 
