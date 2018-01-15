@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
 import { ConfirmDialogModule } from 'primeng/components/confirmdialog/confirmdialog';
 import { ConfirmationService } from 'primeng/components/common/confirmationservice';
+import { Title } from '@angular/platform-browser';
 
 import { LancamentoService } from 'app/lancamentos/lancamento.service';
 import { PessoaService } from './../pessoa/pessoa.service';
@@ -30,6 +31,7 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
     PessoaService,
     ErrorHandleService,
     ConfirmationService,
+    Title,
     { provide: LOCALE_ID, useValue: 'pt-BR' }]
 })
 export class CoreModule { }

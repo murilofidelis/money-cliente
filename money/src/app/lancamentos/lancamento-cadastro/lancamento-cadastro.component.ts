@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ToastyService } from 'ng2-toasty';
 
 import { LancamentoService, LancamentoFiltro } from '../../lancamentos/lancamento.service';
 import { PessoaService } from './../../pessoa/pessoa.service';
 import { Lancamento } from './../../model/model';
 import { ErrorHandleService } from '../../core/error-handle.service';
-
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -31,11 +31,14 @@ export class LancamentoCadastroComponent implements OnInit {
     private pessoaService: PessoaService,
     private errorHandle: ErrorHandleService,
     private toasty: ToastyService,
-    private router: Router
+    private router: Router,
+    private title: Title
   ) { }
 
   ngOnInit() {
     const codigoLancamento = this.route.snapshot.params['codigo'];
+
+    this.title.setTitle('Novo lançamento');
 
     if (codigoLancamento) {
       this.carregarLancamento(codigoLancamento);
@@ -65,7 +68,8 @@ export class LancamentoCadastroComponent implements OnInit {
   carregarLancamento(codigo: number) {
     this.lancamentoService.buscarPorCodigo(codigo)
       .then(lancamento => {
-        this.lancamento = lancamento
+        this.lancamento = lancamento;
+        this.atualizarTituloEdicao();
       })
       .catch(erro => this.errorHandle.handle(erro));
   }
@@ -83,6 +87,7 @@ export class LancamentoCadastroComponent implements OnInit {
       .then(lancamento => {
         this.lancamento = lancamento;
         this.toasty.success('Lançamento alterado com sucesso!');
+        this.atualizarTituloEdicao();
       }).catch(erro => this.errorHandle.handle(erro));
   }
 
@@ -100,5 +105,9 @@ export class LancamentoCadastroComponent implements OnInit {
       this.lancamento = new Lancamento();
     }.bind(this), 1);
     this.router.navigate(['/lancamentos/novo']);
+  }
+
+  atualizarTituloEdicao() {
+    this.title.setTitle(`Edição de lançamento: ${this.lancamento.descricao}`);
   }
 }
